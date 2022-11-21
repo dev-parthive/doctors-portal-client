@@ -3,14 +3,14 @@ import { Link } from 'react-router-dom';
 
 const Navbar = () => {
     const menuItems = <React.Fragment>
-        <li><Link to="/">Home</Link></li>
-        <li><Link to="/appointment">Appointement</Link></li>
-        <li><Link to="/">About</Link></li>
-        <li><Link to="/login">Login</Link></li>
+        <li><Link className='btn btn-ghost' to="/">Home</Link></li>
+        <li><Link className='btn btn-ghost' to="/appointment">Appointement</Link></li>
+        <li><Link className='btn btn-ghost' to="/about">About</Link></li>
+        <li><Link className='btn btn-ghost' to="/login">Login</Link></li>
     </React.Fragment>
     return (
 
-        <div className="navbar bg-base-100 flex justify-between">
+        <div className="navbar bg-base-100 flex justify-between mb-9">
             <div className="navbar-start">
                 <div className="dropdown">
                     <label tabIndex={0} className="btn btn-ghost lg:hidden">
