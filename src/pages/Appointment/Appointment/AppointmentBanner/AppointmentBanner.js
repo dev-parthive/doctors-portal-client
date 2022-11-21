@@ -18,7 +18,8 @@ const AppointmentBanner = ({setSelectedDate, selectedDate}) => {
     <div className='mr-9'>
      <DayPicker
      mode='single'
-     selected={selectedDate}
+     selected={selectedDate} 
+    //  akane onSelect tare akta anonymous function diye wrap korsi karon atate 2 bar click korle error throw kortecilo 
      onSelect={(date)=>{
         if(date){
             setSelectedDate(date)
