@@ -2,9 +2,11 @@ import React from 'react';
 
 const Login = () => {
     return (
+       <section className='h-[800px] flex justify-center items-center'>
         <div>
-            <h2>This is Login page</h2>
+            <h2 className='text-4xl '>Login</h2>
         </div>
+       </section>
     );
 };
 

@@ -1,7 +1,7 @@
 import React from 'react';
 
 const AppointmentOption = ({appointmentOption , setTreatment}) => {
-    console.log(appointmentOption)
+    // console.log(appointmentOption)
     const{ name, slots, } =appointmentOption
     return (
         <div className="card shadow-xl my-8">
@@ -15,6 +15,7 @@ const AppointmentOption = ({appointmentOption , setTreatment}) => {
          className="btn btn-primary text-white uppercase  bg-gradient-to-r from-primary  to-secondary"
          onClick={()=>setTreatment(appointmentOption)}
          >Book Appointment</label>
+         
     </div>
   </div>
 </div>
