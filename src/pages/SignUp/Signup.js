@@ -5,22 +5,28 @@ import { AuthContext } from '../../Context/AuthProvider';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 const Signup = () => {
-    const {createUser, googleSignup, setUser ,user} = useContext(AuthContext)
+    const {createUser, googleSignup, setUser ,user, updateUser, auth} = useContext(AuthContext)
     const { register, formState: { errors }, handleSubmit } = useForm()
     console.log(user)
 
-    
+
     const [data, setData] = useState('')
     const handleSignup = (data) => {
-        console.log(data)
+        // console.log(data)
         const {name, email, password} = data 
+        // console.log(name, email)
         createUser(email, password)
         .then(result => {
             const user = result.user
             console.log(user)
             toast.success("User Created")
             setUser(user)
-
+            const userInfo = {
+                displayName: data.name
+            }
+            updateUser(userInfo)
+            .then( ()=>{})
+            .catch(err => console.log(err))
         }) 
         .catch(err =>{
             console.log(err)
