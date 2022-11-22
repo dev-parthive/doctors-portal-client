@@ -1,14 +1,57 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { AuthContext } from '../../Context/AuthProvider';
 const Login = () => {
+
+  const {hanldeSignIn, user  ,setUser }  = useContext(AuthContext)
   const { register, formState: { errors }, handleSubmit } = useForm()
+  const[loginError, setLoginError] = useState('')
   const [data, setData] = useState('')
-  const handleLogin = (data) => {
+  const navigate = useNavigate()
+
+
+  const handleLogin = ( data , event) => {
+    setLoginError('')
     console.log(data)
+    const {email , password } = data 
+    hanldeSignIn(email, password)
+    .then(result => {
+      console.log(result)
+      const user = result.user
+      toast.success("user logged in succesfully")
+      setUser(user)
+      event.target.reset()
+      navigate('/')
+
+    })
+    .catch(err => {
+      console.log(err)
+      toast.error(err.message)
+      setLoginError(err.message)
+    })
     // console.log(errors)
   }
   // eder je default handleSubmit function thake oita tar data gula setData state rheke dey 
+
+    //show and hide function 
+    const [vsisible, setVisible] = useState(false)
+    const [type, setType] = useState('password')
+
+
+    const hanldeEye = (event) => {
+        const password = document.getElementById("password")
+        setVisible(!vsisible)
+        if (password.type === 'password') {
+            setType('text')
+        }
+        else if (password.type === 'text') {
+            setType('password')
+        }
+
+    }
+
   return (
     <section className='h-[800px]  flex justify-center items-center'>
       <div className='w-96 p-7 border shadow-md' >
@@ -28,10 +71,14 @@ const Login = () => {
             <label htmlFor='Password' className="label">
               <span className="label-text">Password</span>
             </label>
-            <input id="Password" type="password" className="input input-bordered w-full max-w-xs" {...register("password", { required: "password is required", minLength: {value: 6, message: "Password should be atleast 6 charecter"} })} />
+            <input id="password" type={type} className="input input-bordered w-full max-w-xs" {...register("password", { required: "password is required", minLength: {value: 6, message: "Password should be atleast 6 charecter"} })} />
+            <span id="eye" className='btn w-10 mt-3' onClick={() => hanldeEye()}>{vsisible ? <p>hide</p> : <span>show</span>}</span>
 
             {
               errors.password && <p className='text-red-600' role="alert"> {errors.password?.message}</p>
+            }
+            {
+              loginError && <p className='text-red-600'>{loginError}</p>
             }
             <p className='mt-5'><Link>Forger password ?</Link> </p>
           </div>

@@ -8,6 +8,8 @@ const Signup = () => {
     const {createUser, googleSignup, setUser ,user} = useContext(AuthContext)
     const { register, formState: { errors }, handleSubmit } = useForm()
     console.log(user)
+
+    
     const [data, setData] = useState('')
     const handleSignup = (data) => {
         console.log(data)
@@ -89,7 +91,7 @@ const Signup = () => {
                         </label>
                         <input id="password" {...register("password", {
                             required: "password is required", minLength: { value: 6, message: 'password should be atleast 6 charecters' },
-                            pattern: { value: /^(?=(.*[a-z]))(?=(.*[A-Z]))(?=(.*[0-9]))(?=(.*[!@#$%^&*()\-__+.])).{8,}/, message: "password should be strong " }
+                            pattern: { value: /^(?=(.*[a-z]))(?=(.*[A-Z]))(?=(.*[0-9]))(?=(.*[!@#$%^&*()\-__+.])).{8,}/, message: "password must have uppercase lowercase special chacrecter and number " }
                         })} type={type} className="input input-bordered w-full max-w-xs" />
                         <span id="eye" className='btn w-10 mt-3' onClick={() => hanldeEye()}>{vsisible ? <p>hide</p> : <span>show</span>}</span>
                         {
@@ -99,7 +101,7 @@ const Signup = () => {
 
                     <input className='btn mt-4 w-full' value="signup" type="submit" />
                 </form>
-                <p className='my-4'>Already have an account ? <Link to="/login" className='text-secondary '>SignUp </Link></p>
+                <p className='my-4'>Already have an account ? <Link to="/login" className='text-secondary '>Login </Link></p>
                 <div className="divider">OR</div>
                 <button className='btn btn-outline uppercase w-full' onClick={handleGoogleSignup}>Continue With Google </button>
             </div>
