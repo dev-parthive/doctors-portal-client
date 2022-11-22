@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { AuthContext } from '../../../Context/AuthProvider';
 import Banner from '../Banner/Banner';
 import ContuctUs from '../ContuctUs/ContuctUs';
 import InfoCards from '../InfoCards/InfoCards';
