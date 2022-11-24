@@ -27,7 +27,7 @@ const router = createBrowserRouter([
             } , 
             {
                 path:'/appointment', 
-                element: <Appointment></Appointment>
+                element: <PrivateRoute><Appointment></Appointment></PrivateRoute>
             } , 
             
         ]

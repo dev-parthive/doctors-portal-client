@@ -1,12 +1,15 @@
 import { format } from 'date-fns/esm';
-import React from 'react';
+import React, { useContext } from 'react';
+import { toast } from 'react-toastify';
+import { AuthContext } from '../../../Context/AuthProvider';
 
-const BookingModal = ({ treatment, selectedDate, setTreatment }) => {
+const BookingModal = ({ treatment, selectedDate, setTreatment, refetch }) => {
    //treatement is just another name of appointmentOptions with name, slots , slots  _id 
   const { name , slots} = treatment
   // console.log(treatment)
   const date = format(selectedDate, "PP")
-
+  const {user} = useContext(AuthContext)
+  console.log(user)
   const handleBooking = (event) =>{
     event.preventDefault()
       const booking = {
@@ -22,8 +25,22 @@ const BookingModal = ({ treatment, selectedDate, setTreatment }) => {
       // and once darta is saved then close the modal 
       // and display sucess toast
 
-      console.log( booking)
-      setTreatment(null)
+      // console.log( booking) 
+
+      fetch('http://localhost:5000/bookings', {
+        method: 'POST', 
+        headers: {
+          'content-type': 'application/json'
+        },
+        body: JSON.stringify(booking)
+      })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data)
+        setTreatment(null)
+        toast.success(data.message)
+        refetch()
+      })
   }
 
   return (
@@ -44,9 +61,9 @@ const BookingModal = ({ treatment, selectedDate, setTreatment }) => {
             
           </select>
           }
-            <input name='name' type="text" placeholder="Full Name" className=" input input-bordered w-full mb-5" />
-            <input name="phone" type="text" placeholder="Phone Number " className=" input input-bordered w-full mb-5" required/>
-            <input name='email' type="Email" placeholder="Email " className=" input input-bordered w-full mb-5" />
+            <input name='name' defaultValue={user?.displayName} disabled type="text" placeholder="Full Name" className=" input input-bordered w-full mb-5" />
+            <input name="phone" type="text" placeholder="Phone Number "  className=" input input-bordered w-full mb-5" required/>
+            <input name='email' defaultValue={user?.email} type="Email" placeholder="Email " className=" input input-bordered w-full mb-5" disabled />
 
             <input className='  w-full mb-5 btn ' type="submit" value="Submit" />
           </form>
