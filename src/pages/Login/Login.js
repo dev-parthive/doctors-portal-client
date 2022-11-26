@@ -3,25 +3,37 @@ import { useForm } from 'react-hook-form'
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { AuthContext } from '../../Context/AuthProvider';
+import useToken from '../../hooks/useToken';
 const Login = () => {
 
   const {hanldeSignIn, user  ,setUser }  = useContext(AuthContext)
   const { register, formState: { errors }, handleSubmit } = useForm()
   const[loginError, setLoginError] = useState('')
   const [data, setData] = useState('')
+  const [loginUserEmail , setLoginUserEmail] = useState('')
+  const [token] = useToken(loginUserEmail)
+
+
   const location = useLocation()
   const navigate = useNavigate()
 
 
-  const from = location.state?.from?.pathname || '/'
+  const from = location.state?.from?.pathname || '/';
+
+if(token){
+  navigate(from, {replace: true})
+}
+
+
   const handleLogin = ( data , event) => {
     setLoginError('')
     console.log(data)
     const {email , password } = data 
     hanldeSignIn(email, password)
     .then(result => {
-      console.log(result)
       const user = result.user
+      // console.log(user)
+      setLoginUserEmail(data.email)
       toast.success("user logged in succesfully")
       setUser(user)
       event.target.reset()

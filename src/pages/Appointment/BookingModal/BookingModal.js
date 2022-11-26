@@ -1,3 +1,4 @@
+import { success } from 'daisyui/src/colors';
 import { format } from 'date-fns/esm';
 import React, { useContext } from 'react';
 import { toast } from 'react-toastify';
@@ -37,9 +38,17 @@ const BookingModal = ({ treatment, selectedDate, setTreatment, refetch }) => {
       .then(res => res.json())
       .then(data => {
         console.log(data)
+
+       if(data.acknowledged){
         setTreatment(null)
-        toast.success(data.message)
+        toast.success(`Booking Comfirmed`)
         refetch()
+       }
+        else{
+          toast.error(`${data.message}`)
+        }
+
+      //  toast.error()
       })
   }
 

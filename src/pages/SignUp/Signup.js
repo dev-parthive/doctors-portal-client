@@ -4,13 +4,17 @@ import { useForm } from 'react-hook-form'
 import { AuthContext } from '../../Context/AuthProvider';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import useToken from '../../hooks/useToken';
 const Signup = () => {
     const {createUser, googleSignup, setUser ,user, updateUser, auth} = useContext(AuthContext)
     const { register, formState: { errors }, handleSubmit } = useForm()
     // console.log(user)
+    const [createdUserEmail, setCreatedUserEmail] = useState('')
+     const [token ] = useToken(createdUserEmail)
     const navigate = useNavigate()
-
-
+    if(token){
+        navigate('/')
+    }
     const [data, setData] = useState('')
     const handleSignup = (data) => {
         // console.log(data)
@@ -20,6 +24,7 @@ const Signup = () => {
         .then(result => {
             const user = result.user
             console.log(user)
+          
             toast.success("User Created")
             setUser(user)
             const userInfo = {
@@ -27,7 +32,7 @@ const Signup = () => {
             }
             updateUser(userInfo)
             .then( ()=>{
-                navigate('/')
+                saveUser(data.name, data.email )
             })
             .catch(err => console.log(err))
 
@@ -38,6 +43,46 @@ const Signup = () => {
             toast.error(err.message)
         })
     }
+
+    // const saveUser = (name, eamil) =>{
+    //     const user = {name, eamil} ;
+    //     fetch('http://localhost:5000/users', {
+    //         method: "POST", 
+    //        headers: {
+    //         'content-type' : 'application/json'
+    //        } , 
+    //        body: JSON.stringify(user)
+    //        .then(res => res.json())
+    //        .then(data => {
+    //         console.log('save user ',data)
+    //         navigate('/')
+    //         toast.success("user data send in DB")
+    //        })
+    //     })
+    // }
+
+
+    const saveUser = (name, email) =>{
+        const user ={name, email};
+        fetch('http://localhost:5000/users', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+        .then(res => res.json())
+        .then(data =>{
+            // setCreatedUserEmail(email);
+            // console.log( 'save user ',data)
+            // navigate('/')
+            setCreatedUserEmail(email)
+        
+        })
+    }
+
+
+    
 
 
     const handleGoogleSignup = () =>{
@@ -72,6 +117,20 @@ const Signup = () => {
         }
 
     }
+
+    // jwt token 
+    // const getUserToken = email =>{
+    //     fetch(`http://localhost:5000/jwt?email=${email}`)
+    //     .then(res => res.json())
+    //     .then(data => {
+    //         console.log(data)
+    //         if(data.accessToken){
+    //             localStorage.setItem('accessToken', data.accessToken)
+    //             navigate('/')
+    //         }
+    //     })
+    // }
+
 
     return (
         <section className='h-[800px]  flex justify-center items-center'>
