@@ -16,14 +16,19 @@ const AllUser = () => {
 
 
     const handleMakeAdmin = (id) =>{
-        fetch(`http://localhost:5000/users/${id}`, {
+        fetch(`http://localhost:5000/users/admin/${id}`, {
             method: "PUT", 
+            headers: {
+                authorization: `bearer ${localStorage.getItem('accessToken')}`, 
+
+            }
         })
         .then(res => res.json())
         .then(data => {
             console.log(data )
             if(data.data.modifiedCount > 0){
                 toast.success(data.message)
+                refetch()
             }
         })
     }
@@ -48,7 +53,7 @@ const AllUser = () => {
             <th>{i + 1}</th>
             <td>{user.name}</td>
             <td>{user.email}</td>
-            <td>{user?.role ? <button className='btn-xs btn-outline btn-primary'>Admined</button>  : <button onClick={()=> handleMakeAdmin(user._id)} className='btn btn-xs btn-primary text-white'>Make admin</button>}</td>
+            <td>{user?.role ? <button className='btn-xs btn btn-outline'>Admined</button>  : <button onClick={()=> handleMakeAdmin(user._id)} className='btn btn-xs btn-primary text-white'>Make admin</button>}</td>
             <td><button className='btn  text-warning btn-xs btn-oultine'>Delete</button></td>
           </tr>)
     }
