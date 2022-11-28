@@ -31,7 +31,7 @@ const {user} = useContext(AuthContext)
         
         <li><Link to="/dashboard/users">All users </Link></li>
         <li><Link to="/dashboard/adddoctor">Add Doctor</Link></li>
-        <li><Link to="/dashboard/managedoctors">Add Doctor</Link></li>
+        <li><Link to="/dashboard/managedoctors">Manage Doctor</Link></li>
         </>
       }
     </ul>
