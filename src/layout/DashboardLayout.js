@@ -27,7 +27,12 @@ const {user} = useContext(AuthContext)
       {/* <!-- Sidebar content here --> */}
       <li><Link to="/dashboard">My appointments</Link></li>
       {
-        isAdmin && <li><Link to="/dashboard/users">All users </Link></li>
+        isAdmin && <>
+        
+        <li><Link to="/dashboard/users">All users </Link></li>
+        <li><Link to="/dashboard/adddoctor">Add Doctor</Link></li>
+        <li><Link to="/dashboard/managedoctors">Add Doctor</Link></li>
+        </>
       }
     </ul>
   
