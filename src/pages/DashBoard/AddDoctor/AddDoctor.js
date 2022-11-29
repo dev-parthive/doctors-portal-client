@@ -35,7 +35,7 @@ const AddDoctor = () => {
                }
 
                // save doctor information  to the data base 
-               fetch('http://localhost:5000/doctors', {
+               fetch('https://doctors-portal-server-mu-five.vercel.app/doctors', {
                 method: "POST" , 
                 headers: {
                     'content-type' : 'application/json', 
@@ -59,7 +59,7 @@ const AddDoctor = () => {
         queryKey: ['specialty'],
         queryFn: async () => {
 
-            const res = await fetch('http://localhost:5000/appointmentSpecialty')
+            const res = await fetch('https://doctors-portal-server-mu-five.vercel.app/appointmentSpecialty')
             const data = await res.json()
             return data;
         }

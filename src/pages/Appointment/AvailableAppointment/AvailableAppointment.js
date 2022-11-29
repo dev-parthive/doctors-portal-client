@@ -14,7 +14,7 @@ const AvailableAppointment = ({selectedDate}) => {
 
     // const {data:appointmentOptions = []} = useQuery({
     //     queryKey: ['appointmentOption'], 
-    //     queryFn: () => fetch('http://localhost:5000/appointmentOption') 
+    //     queryFn: () => fetch('https://doctors-portal-server-mu-five.vercel.app/appointmentOption') 
     //     .then(res => res.json())
      
     // })
@@ -23,7 +23,7 @@ const AvailableAppointment = ({selectedDate}) => {
     const {data:appointmentOptions = [], refetch, isLoading}  = useQuery({
         queryKey: ['appointmentOptions', date], 
         queryFn: async () =>{
-            const res = await fetch(`http://localhost:5000/appointmentOption?date=${date}`)
+            const res = await fetch(`https://doctors-portal-server-mu-five.vercel.app/appointmentOption?date=${date}`)
             const data = await res.json()
             return data
         }
@@ -33,7 +33,7 @@ const AvailableAppointment = ({selectedDate}) => {
 
 
     // useEffect( ()=>{
-    //     fetch('http://localhost:5000/appointmentOption')
+    //     fetch('https://doctors-portal-server-mu-five.vercel.app/appointmentOption')
     //     .then(res=> res.json())
     //     .then(data =>{
     //         console.log(data)

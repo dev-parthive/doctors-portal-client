@@ -46,7 +46,7 @@ const Signup = () => {
 
     // const saveUser = (name, eamil) =>{
     //     const user = {name, eamil} ;
-    //     fetch('http://localhost:5000/users', {
+    //     fetch('https://doctors-portal-server-mu-five.vercel.app/users', {
     //         method: "POST", 
     //        headers: {
     //         'content-type' : 'application/json'
@@ -64,7 +64,7 @@ const Signup = () => {
 
     const saveUser = (name, email) =>{
         const user ={name, email};
-        fetch('http://localhost:5000/users', {
+        fetch('https://doctors-portal-server-mu-five.vercel.app/users', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -120,7 +120,7 @@ const Signup = () => {
 
     // jwt token 
     // const getUserToken = email =>{
-    //     fetch(`http://localhost:5000/jwt?email=${email}`)
+    //     fetch(`https://doctors-portal-server-mu-five.vercel.app/jwt?email=${email}`)
     //     .then(res => res.json())
     //     .then(data => {
     //         console.log(data)

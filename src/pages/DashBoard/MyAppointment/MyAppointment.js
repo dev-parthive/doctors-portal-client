@@ -8,7 +8,7 @@ const MyAppointment = () => {
 
   const { user } = useContext(AuthContext)
   console.log(user)
-  const url = `http://localhost:5000/bookings?email=${user?.email}`
+  const url = `https://doctors-portal-server-mu-five.vercel.app/bookings?email=${user?.email}`
 
 
   const { data: bookings = [] } = useQuery({
